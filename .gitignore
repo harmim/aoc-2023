@@ -1,0 +1,10 @@
+/.session
+
+### IntelliJ
+/.idea/
+*.iml
+*.ipr
+/out/
+
+### Maven
+/target/
