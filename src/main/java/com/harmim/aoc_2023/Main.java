@@ -5,16 +5,16 @@ import com.harmim.aoc_2023.common.Pair;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Main {
-    static private class InputException extends Exception {
+    private static class InputException extends Exception {
         public InputException(String msg) {
             super(msg);
         }
+    }
+
+    private interface Solver {
+        String solve();
     }
 
     public static void main(String[] args) {
@@ -31,17 +31,17 @@ public class Main {
 
             boolean test = args.length >= 2 && args[1].equals("test");
 
-            Day solver = getSolver(day, loadInput(day, test));
+            Day daySolver = getDaySolver(day, loadInput(day, test));
 
             System.out.printf("Solving day %d...%n", day);
             if (test) {
                 System.out.println("Using a test input file.");
             }
 
-            Pair<String, Double> part1Res = timeExecution(solver::part1);
+            Pair<String, Double> part1Res = timeExecution(daySolver::part1);
             System.out.printf("Part 1: %s (%f seconds)%n", part1Res.a(), part1Res.b());
 
-            Pair<String, Double> part2Res = timeExecution(solver::part2);
+            Pair<String, Double> part2Res = timeExecution(daySolver::part2);
             System.out.printf("Part 2: %s (%f seconds)%n", part2Res.a(), part2Res.b());
         } catch (InputException e) {
             System.err.println(e.getMessage());
@@ -66,7 +66,7 @@ public class Main {
         }
     }
 
-    private static Day getSolver(int day, String input) throws InputException {
+    private static Day getDaySolver(int day, String input) throws InputException {
         return switch (day) {
             case 1 -> new Day01(input);
             case 2 -> new Day02(input);
@@ -98,18 +98,10 @@ public class Main {
         };
     }
 
-    private static Pair<String, Double> timeExecution(Callable<String> f) {
+    private static Pair<String, Double> timeExecution(Solver solver) {
         long start = System.currentTimeMillis();
-        String result;
-        try {
-            ExecutorService service = Executors.newSingleThreadExecutor();
-            result = service.submit(f).get();
-            service.shutdown();
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
-        double duration = (System.currentTimeMillis() - start) / 1_000.;
+        String result = solver.solve();
 
-        return new Pair<>(result, duration);
+        return new Pair<>(result, (System.currentTimeMillis() - start) / 1_000.);
     }
 }
