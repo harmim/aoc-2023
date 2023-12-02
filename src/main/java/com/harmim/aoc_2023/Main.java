@@ -11,6 +11,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
+    static private class InputException extends Exception {
+        public InputException(String msg) {
+            super(msg);
+        }
+    }
+
     public static void main(String[] args) {
         try {
             if (args.length < 1) {
@@ -63,7 +69,7 @@ public class Main {
     private static Day getSolver(int day, String input) throws InputException {
         return switch (day) {
             case 1 -> new Day01(input);
-//            case 2 -> new Day02(input);
+            case 2 -> new Day02(input);
 //            case 3 -> new Day03(input);
 //            case 4 -> new Day04(input);
 //            case 5 -> new Day05(input);
