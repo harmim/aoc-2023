@@ -1,4 +1,4 @@
-package com.harmim.aoc_2023;
+package com.harmim.aoc2023;
 
 class Day01 implements Day {
     private final String[] lines;
@@ -14,9 +14,8 @@ class Day01 implements Day {
         for (String line : lines) {
             StringBuilder number = new StringBuilder();
 
-            for (int i = 0; i < line.length(); i++) {
-                char c = line.charAt(i);
-                if (isDigit(c)) {
+            for (Character c : line.toCharArray()) {
+                if (Character.isDigit(c)) {
                     number.append(c);
                     break;
                 }
@@ -24,7 +23,7 @@ class Day01 implements Day {
 
             for (int i = line.length() - 1; i >= 0; i--) {
                 char c = line.charAt(i);
-                if (isDigit(c)) {
+                if (Character.isDigit(c)) {
                     number.append(c);
                     break;
                 }
@@ -44,13 +43,13 @@ class Day01 implements Day {
             StringBuilder number = new StringBuilder();
 
             StringBuilder numbersParts = new StringBuilder();
-            for (int i = 0; i < line.length(); i++) {
-                numbersParts.append(line.charAt(i));
+            for (Character c : line.toCharArray()) {
+                numbersParts.append(c);
                 numbersParts = new StringBuilder(replaceWordDigits(numbersParts.toString()));
 
-                char c = numbersParts.charAt(numbersParts.length() - 1);
-                if (isDigit(c)) {
-                    number.append(c);
+                char ch = numbersParts.charAt(numbersParts.length() - 1);
+                if (Character.isDigit(ch)) {
+                    number.append(ch);
                     break;
                 }
             }
@@ -60,9 +59,9 @@ class Day01 implements Day {
                 numbersParts.insert(0, line.charAt(i));
                 numbersParts = new StringBuilder(replaceWordDigits(numbersParts.toString()));
 
-                char c = numbersParts.charAt(0);
-                if (isDigit(c)) {
-                    number.append(c);
+                char ch = numbersParts.charAt(0);
+                if (Character.isDigit(ch)) {
+                    number.append(ch);
                     break;
                 }
             }
@@ -73,11 +72,7 @@ class Day01 implements Day {
         return Integer.toString(result);
     }
 
-    private boolean isDigit(char c) {
-        return c >= '1' && c <= '9';
-    }
-
-    private String replaceWordDigits(String s) {
+    private static String replaceWordDigits(String s) {
         return s.replaceAll("one", "1")
                 .replaceAll("two", "2")
                 .replaceAll("three", "3")

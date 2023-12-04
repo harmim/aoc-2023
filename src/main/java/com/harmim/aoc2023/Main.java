@@ -1,6 +1,4 @@
-package com.harmim.aoc_2023;
-
-import com.harmim.aoc_2023.common.Pair;
+package com.harmim.aoc2023;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +13,9 @@ public class Main {
 
     private interface Solver {
         String solve();
+    }
+
+    private record ExecutionResult(String res, Double time) {
     }
 
     public static void main(String[] args) {
@@ -38,11 +39,11 @@ public class Main {
                 System.out.println("Using a test input file.");
             }
 
-            Pair<String, Double> part1Res = timeExecution(daySolver::part1);
-            System.out.printf("Part 1: %s (%f seconds)%n", part1Res.a(), part1Res.b());
+            ExecutionResult part1Res = timeExecution(daySolver::part1);
+            System.out.printf("Part 1: %s (%f seconds)%n", part1Res.res, part1Res.time);
 
-            Pair<String, Double> part2Res = timeExecution(daySolver::part2);
-            System.out.printf("Part 2: %s (%f seconds)%n", part2Res.a(), part2Res.b());
+            ExecutionResult part2Res = timeExecution(daySolver::part2);
+            System.out.printf("Part 2: %s (%f seconds)%n", part2Res.res, part2Res.time);
         } catch (InputException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -70,7 +71,7 @@ public class Main {
         return switch (day) {
             case 1 -> new Day01(input);
             case 2 -> new Day02(input);
-//            case 3 -> new Day03(input);
+            case 3 -> new Day03(input);
 //            case 4 -> new Day04(input);
 //            case 5 -> new Day05(input);
 //            case 6 -> new Day06(input);
@@ -98,10 +99,10 @@ public class Main {
         };
     }
 
-    private static Pair<String, Double> timeExecution(Solver solver) {
+    private static ExecutionResult timeExecution(Solver solver) {
         long start = System.currentTimeMillis();
         String result = solver.solve();
 
-        return new Pair<>(result, (System.currentTimeMillis() - start) / 1_000.);
+        return new ExecutionResult(result, (System.currentTimeMillis() - start) / 1_000.);
     }
 }

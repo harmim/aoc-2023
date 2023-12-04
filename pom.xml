@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.harmim</groupId>
-	<artifactId>aoc_2023</artifactId>
+	<artifactId>aoc2023</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 

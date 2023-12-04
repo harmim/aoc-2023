@@ -1,13 +1,15 @@
-package com.harmim.aoc_2023;
-
-import com.harmim.aoc_2023.common.Triple;
+package com.harmim.aoc2023;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 class Day02 implements Day {
-    private final HashMap<Integer, HashSet<Triple<Integer, Integer, Integer>>> games;
+    private record Rgb(int r, int g, int b) {
+    }
+
+    private final Map<Integer, Set<Rgb>> games;
 
     public Day02(String input) {
         games = new HashMap<>();
@@ -15,7 +17,7 @@ class Day02 implements Day {
         for (String line : input.split("\n")) {
             line = line.replaceFirst("Game ", "");
 
-            HashSet<Triple<Integer, Integer, Integer>> set = new HashSet<>();
+            Set<Rgb> set = new HashSet<>();
             games.put(Integer.parseInt(line.substring(0, line.indexOf(':'))), set);
 
             line = line.replaceFirst("\\d+: ", "");
@@ -35,21 +37,21 @@ class Day02 implements Day {
                     }
                 }
 
-                set.add(new Triple<>(red, green, blue));
+                set.add(new Rgb(red, green, blue));
             }
         }
     }
 
     @Override
     public String part1() {
-        final Triple<Integer, Integer, Integer> maxRgb = new Triple<>(12, 13, 14);
+        final Rgb maxRgb = new Rgb(12, 13, 14);
         int sum = 0;
 
-        for (Map.Entry<Integer, HashSet<Triple<Integer, Integer, Integer>>> set : games.entrySet()) {
+        for (Map.Entry<Integer, Set<Rgb>> set : games.entrySet()) {
             sum += set.getKey();
 
-            for (Triple<Integer, Integer, Integer> cubes : set.getValue()) {
-                if (cubes.a() > maxRgb.a() || cubes.b() > maxRgb.b() || cubes.c() > maxRgb.c()) {
+            for (Rgb cubes : set.getValue()) {
+                if (cubes.r > maxRgb.r || cubes.g > maxRgb.g || cubes.b > maxRgb.b) {
                     sum -= set.getKey();
                     break;
                 }
@@ -63,18 +65,18 @@ class Day02 implements Day {
     public String part2() {
         int sum = 0;
 
-        for (Map.Entry<Integer, HashSet<Triple<Integer, Integer, Integer>>> set : games.entrySet()) {
+        for (Map.Entry<Integer, Set<Rgb>> set : games.entrySet()) {
             int maxRed = 0, maxGreen = 0, maxBlue = 0;
 
-            for (Triple<Integer, Integer, Integer> cubes : set.getValue()) {
-                if (cubes.a() > maxRed) {
-                    maxRed = cubes.a();
+            for (Rgb cubes : set.getValue()) {
+                if (cubes.r > maxRed) {
+                    maxRed = cubes.r;
                 }
-                if (cubes.b() > maxGreen) {
-                    maxGreen = cubes.b();
+                if (cubes.g > maxGreen) {
+                    maxGreen = cubes.g;
                 }
-                if (cubes.c() > maxBlue) {
-                    maxBlue = cubes.c();
+                if (cubes.b > maxBlue) {
+                    maxBlue = cubes.b;
                 }
             }
 

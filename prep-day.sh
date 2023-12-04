@@ -6,7 +6,7 @@ YEAR=2023
 SESSION_FILE=.session
 INPUT_DIR=src/main/resources/input
 INPUT_TEST_DIR=src/main/resources/test-input
-SRC_DIR="src/main/java/com/harmim/aoc_$YEAR"
+SRC_DIR="src/main/java/com/harmim/aoc$YEAR"
 
 if [ -z "$1" ]; then
   echo "Must provide a day of the month as the first argument."
@@ -63,7 +63,7 @@ else
   echo "Remember to update '$SRC_DIR/Main.java':"
   echo "  - Update 'getSolver' to use 'Day$DAY_FILE'."
   cat <<-EOF > "$SRC_FILE"
-package com.harmim.aoc_2023;
+package com.harmim.aoc$YEAR;
 
 class Day$DAY_FILE implements Day {
     public Day$DAY_FILE(String input) {
