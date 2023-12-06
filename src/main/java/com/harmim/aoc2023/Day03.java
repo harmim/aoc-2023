@@ -68,7 +68,7 @@ class Day03 implements Day {
                     sum += adjacentToSymbol ? Integer.parseInt(number.toString()) : 0;
                     numberStart = false;
                     adjacentToSymbol = false;
-                    number = new StringBuilder();
+                    number.setLength(0);
                 }
             }
         }

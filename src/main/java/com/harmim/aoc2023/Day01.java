@@ -54,7 +54,7 @@ class Day01 implements Day {
                 }
             }
 
-            numbersParts = new StringBuilder();
+            numbersParts.setLength(0);
             for (int i = line.length() - 1; i >= 0; i--) {
                 numbersParts.insert(0, line.charAt(i));
                 numbersParts = new StringBuilder(replaceWordDigits(numbersParts.toString()));
