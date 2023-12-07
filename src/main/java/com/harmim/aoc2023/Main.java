@@ -74,7 +74,7 @@ public class Main {
             case 3 -> new Day03(input);
             case 4 -> new Day04(input);
             case 5 -> new Day05(input);
-//            case 6 -> new Day06(input);
+            case 6 -> new Day06(input);
 //            case 7 -> new Day07(input);
 //            case 8 -> new Day08(input);
 //            case 9 -> new Day09(input);
