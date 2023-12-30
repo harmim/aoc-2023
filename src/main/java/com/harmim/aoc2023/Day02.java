@@ -44,14 +44,14 @@ class Day02 implements Day {
 
     @Override
     public String part1() {
-        final Rgb maxRgb = new Rgb(12, 13, 14);
+        final Rgb MAX_RGB = new Rgb(12, 13, 14);
         int sum = 0;
 
         for (Map.Entry<Integer, Set<Rgb>> set : games.entrySet()) {
             sum += set.getKey();
 
             for (Rgb cubes : set.getValue()) {
-                if (cubes.r > maxRgb.r || cubes.g > maxRgb.g || cubes.b > maxRgb.b) {
+                if (cubes.r > MAX_RGB.r || cubes.g > MAX_RGB.g || cubes.b > MAX_RGB.b) {
                     sum -= set.getKey();
                     break;
                 }

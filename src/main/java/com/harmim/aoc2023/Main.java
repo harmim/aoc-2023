@@ -30,7 +30,7 @@ public class Main {
                 throw new InputException(String.format("The provided day ('%s') is not a valid integer.", args[0]));
             }
 
-            boolean test = args.length >= 2 && args[1].equals("test");
+            boolean test = args.length > 1 && args[1].equals("test");
 
             Day daySolver = getDaySolver(day, loadInput(day, test));
 
@@ -75,7 +75,7 @@ public class Main {
             case 4 -> new Day04(input);
             case 5 -> new Day05(input);
             case 6 -> new Day06(input);
-//            case 7 -> new Day07(input);
+            case 7 -> new Day07(input);
 //            case 8 -> new Day08(input);
 //            case 9 -> new Day09(input);
 //            case 10 -> new Day10(input);

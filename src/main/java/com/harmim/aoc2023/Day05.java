@@ -55,7 +55,7 @@ class Day05 implements Day {
 
     @Override
     public String part1() {
-        return Long.toString(seeds.stream().mapToLong(this::mapSeed).min().orElse(0));
+        return Long.toString(seeds.stream().mapToLong(this::mapSeed).min().orElseThrow());
     }
 
     @Override
@@ -68,8 +68,8 @@ class Day05 implements Day {
         return Long.toString(
                 seedRanges.parallelStream().mapToLong(range ->
                         LongStream.rangeClosed(range.low, range.high).boxed().parallel()
-                                .mapToLong(this::mapSeed).min().orElse(0)
-                ).min().orElse(0)
+                                .mapToLong(this::mapSeed).min().orElseThrow()
+                ).min().orElseThrow()
         );
     }
 

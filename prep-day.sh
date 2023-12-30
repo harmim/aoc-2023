@@ -4,9 +4,11 @@ set -e
 
 YEAR=2023
 SESSION_FILE=.session
-INPUT_DIR=src/main/resources/input
-INPUT_TEST_DIR=src/main/resources/test-input
-SRC_DIR="src/main/java/com/harmim/aoc$YEAR"
+MAIN_SRC_DIR=src/main
+RESOURCES_DIR="$MAIN_SRC_DIR/resources"
+INPUT_DIR="$RESOURCES_DIR/input"
+INPUT_TEST_DIR="$RESOURCES_DIR/test-input"
+SRC_DIR="$MAIN_SRC_DIR/java/com/harmim/aoc$YEAR"
 
 if [ -z "$1" ]; then
   echo "Must provide a day of the month as the first argument."
@@ -25,7 +27,7 @@ if [ ! -f "$SESSION_FILE" ]; then
   exit 1
 fi
 
-SESSION=$(cat "$SESSION_FILE")
+SESSION="$(cat "$SESSION_FILE")"
 if [ -z "$SESSION" ]; then
   echo "Must set the session from the Advent of Code website."
   exit 1
@@ -33,7 +35,7 @@ fi
 
 DAY_FILE=$DAY
 if [[ $DAY -ge 1 && $DAY -le 9 ]]; then
-  DAY_FILE="0$DAY"
+  DAY_FILE=0$DAY
 fi
 
 INPUT_FILE="$INPUT_DIR/$DAY_FILE.txt"
@@ -55,18 +57,19 @@ else
   touch "$INPUT_TEST_FILE"
 fi
 
-SRC_FILE="$SRC_DIR/Day$DAY_FILE.java"
+DAY_CLASS=Day$DAY_FILE
+SRC_FILE="$SRC_DIR/$DAY_CLASS.java"
 if [ -f "$SRC_FILE" ]; then
   echo "'$SRC_FILE' already exists, skipping..."
 else
   echo "Creating a boilerplate class for day $DAY at '$SRC_FILE'..."
   echo "Remember to update '$SRC_DIR/Main.java':"
-  echo "  - Update 'getSolver' to use 'Day$DAY_FILE'."
+  echo "  - Update 'getSolver' to use '$DAY_CLASS'."
   cat <<-EOF > "$SRC_FILE"
 package com.harmim.aoc$YEAR;
 
-class Day$DAY_FILE implements Day {
-    public Day$DAY_FILE(String input) {
+class $DAY_CLASS implements Day {
+    public $DAY_CLASS(String input) {
     }
 
     @Override

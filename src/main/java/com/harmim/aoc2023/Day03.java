@@ -78,8 +78,8 @@ class Day03 implements Day {
 
     @Override
     public String part2() {
-        final char gear = '*';
-        final int gearNeighbors = 2;
+        final char GEAR = '*';
+        final int GEAR_NEIGHBORS = 2;
         int sum = 0;
 
         for (int x = 0; x < schema.length; x++) {
@@ -88,12 +88,12 @@ class Day03 implements Day {
             }
 
             for (int y = 0; y < schema[x].length; y++) {
-                if (schema[x][y].item != gear) {
+                if (schema[x][y].item != GEAR) {
                     continue;
                 }
 
                 List<Index> neighborDigits = getNeighbors(new Index(x, y), Item.Type.DIGIT);
-                if (neighborDigits.size() < gearNeighbors) {
+                if (neighborDigits.size() < GEAR_NEIGHBORS) {
                     continue;
                 }
 
@@ -105,7 +105,7 @@ class Day03 implements Day {
                     }
 
                     neighborsCount.getAndIncrement();
-                    if (neighborsCount.get() > gearNeighbors) {
+                    if (neighborsCount.get() > GEAR_NEIGHBORS) {
                         return 1;
                     }
 
@@ -133,7 +133,7 @@ class Day03 implements Day {
                     return Integer.parseInt(number.toString());
                 }).reduce(1, Math::multiplyExact);
 
-                sum += neighborsCount.get() == gearNeighbors ? product : 0;
+                sum += neighborsCount.get() == GEAR_NEIGHBORS ? product : 0;
             }
         }
 
